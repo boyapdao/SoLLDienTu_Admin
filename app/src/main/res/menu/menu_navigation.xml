@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single"><!--giúp tô sáng mục chọn-->
+        <item
+            android:id="@+id/mn_Home"
+            android:title="Trang chủ"
+            android:icon="@drawable/ic_home"/>
+        <item
+            android:id="@+id/mn_qlGiaoVien"
+            android:title="Quản lý Giảng Viên"
+            android:icon="@drawable/ic_teacher"/>
+        <item
+            android:id="@+id/mn_qlMonHoc"
+            android:title="Quản lý Môn Học"
+            android:icon="@drawable/ic_book"/>
+        <item
+            android:id="@+id/mn_QLSinhVien"
+            android:title="Quản lý Sinh Viên"
+            android:icon="@drawable/ic_icon_student"/>
+        <item
+            android:id="@+id/mn_QLLop"
+            android:title="Quản lý Lớp"
+            android:icon="@drawable/ic_class"/>
+        <item
+            android:id="@+id/mn_PhanCong"
+            android:title="Phân công giảng dạy"
+            android:icon="@drawable/ic_education_24dp"/>
+        <item
+            android:id="@+id/mn_KetQua"
+            android:title="Kết quả sinh viên"
+            android:icon="@drawable/ic_report"/>
+    </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/mn_ThongTinUD"
+                android:title="Thông Tin Ứng Dụng"
+                android:icon="@drawable/info_24dp"/>
+            <item
+                android:id="@+id/mn_LogOut"
+                android:title="Đăng xuất"
+                android:icon="@drawable/ic_logout"/>
+        </menu>
+    </item>
+</menu>

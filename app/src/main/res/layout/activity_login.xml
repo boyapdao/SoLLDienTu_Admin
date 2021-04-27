@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/logo_img"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo_fit"/>
+    <TextView
+        android:id="@+id/text_SchoolName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_img"
+        android:layout_centerHorizontal="true"
+        android:textSize="16dp"
+        android:textColor="#486ba2"
+        android:text="TRƯỜNG ĐH SƯ PHẠM KỸ THUẬT HƯNG YÊN"/>
+    <TextView
+        android:id="@+id/text_fName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_SchoolName"
+        android:layout_centerHorizontal="true"
+        android:textSize="22dp"
+        android:textColor="#486ba2"
+        android:text="KHOA CÔNG NGHỆ THÔNG TIN"/>
+    <LinearLayout
+        android:id="@+id/ln_login"
+        android:layout_below="@id/text_fName"
+        android:layout_marginTop="20dp"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/text_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tài khoản"
+            android:layout_centerVertical="true"
+            android:textColor="#000"/>
+        <EditText
+            android:id="@+id/account_edt"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_account"
+            android:textSize="15dp"
+            android:drawableLeft="@drawable/ic_person_25"
+            android:drawablePadding="10dp"
+            android:focusable="true"
+            android:hint="Số điện thoại hoặc mã sinh viên"/>
+        <TextView
+            android:id="@+id/text_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Mật khẩu"
+            android:layout_centerVertical="true"
+            android:textColor="#000"/>
+        <EditText
+            android:id="@+id/pass_edt"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_pass"
+            android:drawableLeft="@drawable/ic_lock_25"
+            android:textSize="15dp"
+            android:drawablePadding="10dp"
+            android:inputType="textPassword"
+            android:hint="Nhập mật khẩu"/>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/visible_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_visibility_off_20"
+        android:layout_alignRight="@id/ln_login"
+        android:layout_alignBottom="@id/ln_login"
+        android:layout_marginBottom="45dp"
+        android:layout_marginRight="40dp"/>
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/btn_login"
+        android:layout_below="@id/ln_login"
+        android:layout_centerHorizontal="true"
+        android:text="Đăng nhập"/>
+    <!--    <Button-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:theme="@style/Widget.AppCompat.Light.ActionBar"-->
+    <!--        android:background="#FF9800"-->
+    <!--        android:text="abc"/>-->
+    <TextView
+        android:id="@+id/forgetPass_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quên/Lấy mật khẩu?"
+        android:layout_below="@id/login_btn"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000"
+        android:layout_marginTop="30dp"/>
+    <TextView
+        android:id="@+id/text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="135dp"
+        android:text="Hướng dẫn - Trợ giúp sử dụng"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:layout_below="@+id/forgetPass_tv"
+        android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:id="@+id/ln_2"
+        android:layout_below="@+id/text_1"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_1"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:text="Hotline: "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#F44336"
+            android:text="036 5235 163"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/text_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ngày cập nhật: 22/03/2021"
+        android:layout_below="@id/ln_2"
+        android:textColor="#000"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
