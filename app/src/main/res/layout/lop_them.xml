@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20sp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Thêm giáo viên"
+        android:textColor="#F44336"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:layout_height="150dp"
+        android:layout_width="250dp"
+        android:src="@drawable/add_image"
+        android:layout_marginTop="20sp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_marginTop="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tên lớp:"
+        android:textColor="#000000"
+        android:textSize="20sp"/>
+    <EditText
+        android:id="@+id/edt_add_TenLop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mã giáo viên:"
+        android:textColor="#000000"
+        android:textSize="20sp"/>
+    <AutoCompleteTextView
+        android:completionThreshold="1"
+        android:id="@+id/edt_add_maGvLop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <Button
+            android:id="@+id/btn_add_Lop"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Thêm"/>
+        <Button
+            android:id="@+id/btn_HuyAddLop"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy"/>
+    </LinearLayout>
+
+
+</LinearLayout>

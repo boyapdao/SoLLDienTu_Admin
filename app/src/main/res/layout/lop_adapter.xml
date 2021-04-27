@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/corner_lv_ct_order">
+
+    <ImageView
+        android:id="@+id/image_Lop"
+        android:padding="10sp"
+        android:layout_width="120sp"
+        android:layout_height="120sp"
+        android:scaleType="centerCrop"
+        android:layout_centerVertical="true"
+        android:src="@drawable/add_image" />
+    <TextView
+        android:id="@+id/tv_maLop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image_Lop"
+        android:text="Mã Lớp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#00BCD4"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:id="@+id/tv_TenLop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image_Lop"
+        android:layout_below="@+id/tv_maLop"
+        android:text="Tên Lớp: "
+        android:textSize="20sp"
+        android:textColor="#86E91ECE"
+        android:layout_marginTop="8sp"/>
+    <TextView
+        android:id="@+id/tv_maGVLop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image_Lop"
+        android:layout_below="@+id/tv_TenLop"
+        android:text="Mã Giáo Viên: "
+        android:textSize="20sp"
+        android:textColor="#4CAF50"
+        android:layout_marginTop="8sp"/>
+
+
+</RelativeLayout>
