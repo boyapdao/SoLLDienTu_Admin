@@ -7,6 +7,17 @@ public class GiaoVien {
     private String ngaySinh;
     private int gioiTinh;
 
+    @Override
+    public String toString() {
+        return tenGv ;
+
+    }
+
+    public GiaoVien(String maGv, String tenGv) {
+        this.maGv = maGv;
+        this.tenGv = tenGv;
+    }
+
     public GiaoVien() {
     }
 
@@ -27,7 +38,6 @@ public class GiaoVien {
         this.gioiTinh = gioiTinh;
     }
 
-
     public String getMaGv() {
         return maGv;
     }
@@ -42,14 +52,6 @@ public class GiaoVien {
 
     public void setTenGv(String tenGv) {
         this.tenGv = tenGv;
-    }
-
-    public String getTenGV() {
-        return tenGv;
-    }
-
-    public void setTenGV(String tenGV) {
-        this.tenGv = tenGV;
     }
 
     public String getQueQuan() {

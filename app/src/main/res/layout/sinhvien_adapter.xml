@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/corner_lv_ct_order">
+
+    <ImageView
+        android:id="@+id/image_Sv"
+        android:padding="10sp"
+        android:layout_width="120sp"
+        android:layout_height="120sp"
+        android:scaleType="centerCrop"
+        android:layout_centerVertical="true"
+        android:src="@drawable/add_image" />
+    <TextView
+        android:id="@+id/tv_TenSinhVien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image_Sv"
+        android:text="Tên"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#00BCD4"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:id="@+id/tv_NgaySinhSV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image_Sv"
+        android:layout_below="@+id/tv_TenSinhVien"
+        android:text="Ngày sinh: "
+        android:textSize="20sp"
+        android:textColor="#86E91ECE"
+        android:layout_marginTop="8sp"/>
+    <TextView
+        android:id="@+id/tv_GioiTinhSV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image_Sv"
+        android:layout_below="@+id/tv_NgaySinhSV"
+        android:text="Giới tính: "
+        android:textSize="20sp"
+        android:textColor="#4CAF50"
+        android:layout_marginTop="8sp"/>
+    <TextView
+        android:id="@+id/tv_SdtSV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số điện thoại"
+        android:textSize="15sp"
+        android:layout_toRightOf="@id/image_Sv"
+        android:layout_below="@+id/tv_GioiTinhSV"
+        android:layout_marginTop="8sp"/>
+
+
+</RelativeLayout>

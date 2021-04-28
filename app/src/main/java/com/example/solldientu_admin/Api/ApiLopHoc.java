@@ -15,8 +15,11 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface ApiLopHoc {
     String url="https://solldientu-yg3.conveyor.cloud/api/Lop/";
@@ -45,8 +48,14 @@ public interface ApiLopHoc {
     Call<pLopHoc> get_All2Lop(@Body HashMap<String, String> page);
 
     @POST("create-lop")
-    Call<LopHoc> postAddLop(@Body LopHoc lopHoc);
+    Call<Void> postAddLop(@Body LopHoc lopHoc);
 
-    @GET("get-all-idGV")
-    Call<List<String>> getMaGVLop();
+    @GET("get-all-idnameGv")
+    Call<List<GiaoVien>> getMaTenGVLop();
+
+    @PUT("update-lop/{id}")
+    Call<Void> UpdateLop(@Path("id")String id,@Body LopHoc p);
+
+    @DELETE("delete-lop/{id}")
+    Call<Void> sendDelete(@Path("id")String id);
 }
