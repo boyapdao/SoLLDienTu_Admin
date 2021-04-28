@@ -1,21 +1,22 @@
 package com.example.solldientu_admin.Pagination;
 
 import com.example.solldientu_admin.object.GiaoVien;
+import com.example.solldientu_admin.object.MonHoc;
 
 import java.util.ArrayList;
 
-public class pGiaoVien {
+public class pMonHoc {
     private int page, pageSize, total;
-    ArrayList<GiaoVien> data;
+    ArrayList<MonHoc> data;
 
-    public pGiaoVien(int page, int pageSize, int totalGv, ArrayList<GiaoVien> data) {
-        this.page = page;
-        this.pageSize = pageSize;
-        this.total = totalGv;
-        this.data = data;
+    public pMonHoc() {
     }
 
-    public pGiaoVien() {
+    public pMonHoc(int page, int pageSize, int totalMH, ArrayList<MonHoc> data) {
+        this.page = page;
+        this.pageSize = pageSize;
+        this.total = totalMH;
+        this.data = data;
     }
 
     public int getPage() {
@@ -34,19 +35,19 @@ public class pGiaoVien {
         this.pageSize = pageSize;
     }
 
-    public int getTotal() {
+    public int getTotalMH() {
         return total;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setTotalMH(int totalMH) {
+        this.total = totalMH;
     }
 
-    public ArrayList<GiaoVien> getData() {
+    public ArrayList<MonHoc> getData() {
         return data;
     }
 
-    public void setData(ArrayList<GiaoVien> data) {
+    public void setData(ArrayList<MonHoc> data) {
         this.data = data;
     }
 }

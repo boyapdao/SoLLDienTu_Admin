@@ -149,7 +149,7 @@ public class TeacherFragment extends Fragment {
                 pd.dismiss();
 
                 ArrayList<GiaoVien> ds_gv1=response.body().getData();
-                totalGV=response.body().getTotalGV();
+                totalGV=response.body().getTotal();
 
                 if (ds_gv1.size()>0){
                     for (int i=0;i < ds_gv1.size(); i++)
@@ -331,7 +331,7 @@ public class TeacherFragment extends Fragment {
                         pd.dismiss();
 
                         ArrayList<GiaoVien> ds_gv1=response.body().getData();
-                        totalGV=response.body().getTotalGV();
+                        totalGV=response.body().getTotal();
 
                         if (ds_gv1.size()>0){
                             for (int i=0;i < ds_gv1.size(); i++)
@@ -339,6 +339,7 @@ public class TeacherFragment extends Fragment {
                                 ds_GV.add(ds_gv1.get(i));
                             }
                             adapter.notifyDataSetChanged();
+                            bottomLayout.setVisibility(View.GONE);
                         }
                     }
 
@@ -348,7 +349,6 @@ public class TeacherFragment extends Fragment {
                     }
                 });
 //                Toast.makeText(getActivity(), "Items Updated.", Toast.LENGTH_SHORT).show();
-                bottomLayout.setVisibility(View.GONE);
             }
         }, 1000);
     }
@@ -473,7 +473,7 @@ public class TeacherFragment extends Fragment {
                 pd.dismiss();
 
                 ArrayList<GiaoVien> ds_gv1=response.body().getData();
-                totalGV=response.body().getTotalGV();
+                totalGV=response.body().getTotal();
 
                 if (ds_gv1.size()>0){
                     for (int i=0;i < ds_gv1.size(); i++)

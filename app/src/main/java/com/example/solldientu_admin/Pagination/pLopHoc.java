@@ -5,13 +5,13 @@ import com.example.solldientu_admin.object.LopHoc;
 import java.util.ArrayList;
 
 public class pLopHoc {
-    private  int page,pageSize,totalLop;
+    private  int page,pageSize,total;
     ArrayList<LopHoc> data;
 
     public pLopHoc(int page, int pageSize, int totalLop, ArrayList<LopHoc> data) {
         this.page = page;
         this.pageSize = pageSize;
-        this.totalLop = totalLop;
+        this.total = totalLop;
         this.data = data;
     }
 
@@ -31,12 +31,12 @@ public class pLopHoc {
         this.pageSize = pageSize;
     }
 
-    public int getTotalLop() {
-        return totalLop;
+    public int getTotal() {
+        return total;
     }
 
-    public void setTotalLop(int totalLop) {
-        this.totalLop = totalLop;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     public ArrayList<LopHoc> getData() {

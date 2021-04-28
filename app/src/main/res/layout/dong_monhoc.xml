@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/corner_lv_ct_order">
+
+    <ImageView
+        android:id="@+id/image_Mh"
+        android:padding="10sp"
+        android:layout_width="120sp"
+        android:layout_height="120sp"
+        android:scaleType="centerCrop"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_book_subject" />
+    <TextView
+        android:id="@+id/tv_TenMon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image_Mh"
+        android:text="Tên môn"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#3F51B5"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:id="@+id/tv_soTC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image_Mh"
+        android:layout_below="@+id/tv_TenMon"
+        android:text="Số tín chỉ: "
+        android:textSize="20sp"
+        android:textColor="#4CAF50"
+        android:layout_marginTop="8sp"/>
+    <TextView
+        android:id="@+id/tv_kyHoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kỳ học: 2"
+        android:textSize="15sp"
+        android:layout_toRightOf="@id/image_Mh"
+        android:layout_below="@+id/tv_soTC"
+        android:layout_marginTop="8sp"/>
+</RelativeLayout>

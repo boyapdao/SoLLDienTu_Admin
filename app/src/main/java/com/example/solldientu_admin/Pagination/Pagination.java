@@ -7,12 +7,12 @@ public class Pagination {
     String tenGV;
     HashMap<String, String> hm=new HashMap();
 
-    public Pagination(int page, int pageSize, String TenGV) {
+    public Pagination(int page, int pageSize, String Ten) {
         this.page = page;
         this.pageSize = pageSize;
         hm.put("page", page+"");
         hm.put("pageSize", pageSize+"");
-        hm.put("tenGV", TenGV);
+        hm.put("ten", Ten);
     }
 
     public Pagination() {

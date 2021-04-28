@@ -195,7 +195,7 @@ public class ClassFragment extends Fragment {
                 ArrayList<LopHoc> ds_lop1 = response.body().getData();
 //                Log.d("BBB", "onResponse: "+ds_lop1.size()+" ZZZZ");
                 Toast.makeText(getActivity(), " helo :  "+ds_lop1.size(), Toast.LENGTH_LONG).show();
-                totalGV = response.body().getTotalLop();
+                totalGV = response.body().getTotal();
                 if(ds_lop1.size()>0){
                     for (int i=0;i<ds_lop1.size();i++){
                         ds_Lop.add(ds_lop1.get(i));
