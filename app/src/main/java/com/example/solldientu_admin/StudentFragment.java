@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.solldientu_admin.Adapter.GiaoVienAdapter;
@@ -391,7 +392,8 @@ public class StudentFragment extends Fragment {
         dialog.setContentView(R.layout.sinhvien_sua);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
-        EditText edt_TenSV, edt_NamSinh, edt_ThuongTru, edt_TamTru, edt_Sdt,txt_maSV;
+        EditText edt_TenSV, edt_NamSinh, edt_ThuongTru, edt_TamTru, edt_Sdt;
+        TextView txt_maSV;
 
         AutoCompleteTextView edt_MaLop;
         ArrayList<String> arrMaLopSV = new ArrayList<>();
@@ -400,7 +402,7 @@ public class StudentFragment extends Fragment {
         RadioButton rb_Nam, rb_Nu;
         Button btn_Sua, btn_Huy;
 
-        txt_maSV = dialog.findViewById(R.id.txt_sua_MaSV);
+        txt_maSV =(TextView) dialog.findViewById(R.id.txt_sua_MaSV);
         edt_TenSV = dialog.findViewById(R.id.edt_sua_TenSV);
         edt_NamSinh = dialog.findViewById(R.id.edt_sua_NSSV);
         edt_ThuongTru = dialog.findViewById(R.id.edt_sua_ThuongTruSV);
@@ -421,10 +423,12 @@ public class StudentFragment extends Fragment {
             @Override
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
                 ArrayList<String> list_Ma = (ArrayList<String>) response.body();
+                Log.d("MANG", "onResponse: "+list_Ma.size());
                 if (list_Ma.size() > 0) {
                     for (int i = 0; i < list_Ma.size(); i++) {
                         arrMaLopSV.add(list_Ma.get(i));
                     }
+                    Log.d("MANGAFTER", "onResponse: "+arrMaLopSV.size());
 
                 }
             }
@@ -436,6 +440,7 @@ public class StudentFragment extends Fragment {
         });
         arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.select_dialog_item,arrMaLopSV);
         edt_MaLop.setAdapter(arrayAdapter);
+
         SinhVien sv = ds_SV.get(pos);
         txt_maSV.setText(sv.getMaSv());
         edt_TenSV.setText(sv.getTenSv());
@@ -461,73 +466,74 @@ public class StudentFragment extends Fragment {
                 Chooes_Photo();
             }
         });
-        btn_Sua.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pd=new ProgressDialog(getActivity());
-                pd.setMessage("Đang cập nhật.....");
-                pd.show();
-                String maSV,Ten, ThuongTru, TamTru, Anh = "", NS, MaLop, Sdt;
-                int GT;
-                maSV = txt_maSV.getText().toString();
-                Ten = edt_TenSV.getText().toString();
-                ThuongTru = edt_ThuongTru.getText().toString();
-                TamTru = edt_TamTru.getText().toString();
-                NS = edt_NamSinh.getText().toString();
-                MaLop = edt_MaLop.getText().toString();
-                Sdt = edt_Sdt.getText().toString();
-                if (rb_Nam.isChecked()) {
-                    GT = 1;
-                } else {
-                    GT = 0;
-                }
-                if (ThemAnh) {
-                    //Add Image
-                    File file = new File(realpath);
-                    String file_path = file.getAbsolutePath();
-
-                    String[] tenfile1 = file_path.split("/");
-                    //        Log.d("FILE_PATH", file_path);
-                    //trường hợp trùng tên file thì + thêm thời gian vào tên file
-                    String[] tenfile2 = tenfile1[5].split("\\.");
-
-                    //Gán vào ảnh
-                    tenfile1[5] = tenfile2[0] + System.currentTimeMillis() + "." + tenfile2[1];
-                    Anh = tenfile1[5];
-                    RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                    MultipartBody.Part body = MultipartBody.Part.createFormData("files", Anh, requestBody);
-                    //API ThemAnh
-                    ApiSinhVien.apiService.UploadPhoto(body).enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
-                            Toast.makeText(getActivity(), "ok success Image! " + response.toString(), Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
-                            Toast.makeText(getActivity(), "oh fail Image! " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    SinhVien sv = new SinhVien(maSV,Ten, NS, GT, ThuongTru, TamTru, Sdt, Anh, MaLop);
-                    ApiSinhVien.apiService.addSinhVien(sv).enqueue(new Callback<Void>() {
-                        @Override
-                        public void onResponse(Call<Void> call, Response<Void> response) {
-                            pd.dismiss();
-                            Toast.makeText(getActivity(), "Success !", Toast.LENGTH_SHORT).show();
-                            ds_SV.clear();
-                            page=1;
-                            Get_All(page,pageSize);
-                            dialog.cancel();
-                        }
-
-                        @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
-                            Toast.makeText(getActivity(), "fail!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        });
+//        btn_Sua.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                pd=new ProgressDialog(getActivity());
+//                pd.setMessage("Đang cập nhật.....");
+//                pd.show();
+//                String maSV,Ten, ThuongTru, TamTru, Anh = "", NS, MaLop, Sdt;
+//                int GT;
+//                maSV = txt_maSV.getText().toString();
+//                Ten = edt_TenSV.getText().toString();
+//                ThuongTru = edt_ThuongTru.getText().toString();
+//                TamTru = edt_TamTru.getText().toString();
+//                NS = edt_NamSinh.getText().toString();
+//                MaLop = edt_MaLop.getText().toString();
+//                Sdt = edt_Sdt.getText().toString();
+//                if (rb_Nam.isChecked()) {
+//                    GT = 1;
+//                } else {
+//                    GT = 0;
+//                }
+//                if (ThemAnh) {
+//                    //Add Image
+//                    File file = new File(realpath);
+//                    String file_path = file.getAbsolutePath();
+//
+//                    String[] tenfile1 = file_path.split("/");
+//                    //        Log.d("FILE_PATH", file_path);
+//                    //trường hợp trùng tên file thì + thêm thời gian vào tên file
+//                    String[] tenfile2 = tenfile1[5].split("\\.");
+//
+//                    //Gán vào ảnh
+//                    tenfile1[5] = tenfile2[0] + System.currentTimeMillis() + "." + tenfile2[1];
+//                    Anh = tenfile1[5];
+//                    RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//                    MultipartBody.Part body = MultipartBody.Part.createFormData("files", Anh, requestBody);
+//                    //API ThemAnh
+//                    ApiSinhVien.apiService.UploadPhoto(body).enqueue(new Callback<String>() {
+//                        @Override
+//                        public void onResponse(Call<String> call, Response<String> response) {
+//                            Toast.makeText(getActivity(), "ok success Image! " + response.toString(), Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<String> call, Throwable t) {
+//                            Toast.makeText(getActivity(), "oh fail Image! " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                    SinhVien sv = new SinhVien(Ten, NS, GT, ThuongTru, TamTru, Sdt, Anh, MaLop);
+//                    ApiSinhVien.apiService.updateSinhVien(ds_SV.get(pos).getMaSv(),sv).enqueue(new Callback<Void>() {
+//                        @Override
+//                        public void onResponse(Call<Void> call, Response<Void> response) {
+//                            pd.dismiss();
+//                            Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
+//                            page = 1;
+//                            ds_SV.clear();
+//                            Get_All(page,pageSize);
+//                            dialog.cancel();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<Void> call, Throwable t) {
+//                            Toast.makeText(getActivity(), "Fail!", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//
+//                }
+//            }
+//        });
 
         dialog.show();
 
