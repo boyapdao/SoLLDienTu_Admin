@@ -1,9 +1,6 @@
 package com.example.solldientu_admin.Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,31 +8,29 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.solldientu_admin.Api.ApiGiaoVien;
+import com.example.solldientu_admin.Api.ApiSinhVien;
 import com.example.solldientu_admin.R;
 import com.example.solldientu_admin.object.GiaoVien;
+import com.example.solldientu_admin.object.SinhVien;
 import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class GiaoVienAdapter extends BaseAdapter {
+public class SinhVienAdapter extends BaseAdapter {
     Context context;
     int layout;
-    ArrayList<GiaoVien> dsGv;
+    ArrayList<SinhVien> dsSv;
 
-    public GiaoVienAdapter(Context context, int layout, ArrayList<GiaoVien> dsGv) {
+    public SinhVienAdapter(Context context, int layout, ArrayList<SinhVien> dsSv) {
         this.context = context;
         this.layout = layout;
-        this.dsGv = dsGv;
+        this.dsSv = dsSv;
     }
 
     @Override
     public int getCount() {
-        return dsGv.size();
+        return dsSv.size();
     }
 
     @Override
@@ -49,42 +44,42 @@ public class GiaoVienAdapter extends BaseAdapter {
     }
 
     class ViewHolder{
-        ImageView imgGv;
-        TextView tvTen, tvNgaySinh, tvGioiTinh, tvQue;
+        ImageView imgSv;
+        TextView tvTen, tvNgaySinh, tvGioiTinh, tvSdt;
     }
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewHolder holder;
+        SinhVienAdapter.ViewHolder holder;
         if(view==null){
             LayoutInflater inflater= (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             view=inflater.inflate(layout,null);
-            holder=new ViewHolder();
+            holder=new SinhVienAdapter.ViewHolder();
             //Ánh xạ
-            holder.imgGv=view.findViewById(R.id.image_Gv);
-            holder.tvTen=view.findViewById(R.id.tv_TenGiaoVien);
-            holder.tvNgaySinh=view.findViewById(R.id.tv_NgaySinh);
-            holder.tvGioiTinh=view.findViewById(R.id.tv_GioiTinh);
-            holder.tvQue=view.findViewById(R.id.tv_QueQuan);
+            holder.imgSv=view.findViewById(R.id.image_Sv);
+            holder.tvTen=view.findViewById(R.id.tv_TenSinhVien);
+            holder.tvNgaySinh=view.findViewById(R.id.tv_NgaySinhSV);
+            holder.tvGioiTinh=view.findViewById(R.id.tv_GioiTinhSV);
+            holder.tvSdt=view.findViewById(R.id.tv_SdtSV);
             view.setTag(holder);
-        }else {holder= (ViewHolder) view.getTag();}
+        }else {holder= (SinhVienAdapter.ViewHolder) view.getTag();}
         //Gán giá trị
-        GiaoVien a=dsGv.get(i);
+        SinhVien a=dsSv.get(i);
 
-        holder.tvTen.setText(a.getTenGv());
+        holder.tvTen.setText(a.getTenSv());
         holder.tvNgaySinh.setText(a.getNgaySinh());
 
         if (a.getGioiTinh()==0)
             holder.tvGioiTinh.setText("Giới tính: Nữ");
         else holder.tvGioiTinh.setText("Giới tính: Nam");
-        holder.tvQue.setText(a.getQueQuan());
+        holder.tvSdt.setText(a.getSdt());
 
         if (!a.getAnh().equals("")){
 
             String[] tenfile=a.getAnh().split("\\.");
 //            Glide.with(context).load(ApiGiaoVien.url+"GetImage/"+tenfile[0]).into(holder.imgGv);
-            Picasso.get().load(ApiGiaoVien.url+"GetImage/"+tenfile[0]).into(holder.imgGv);
+            Picasso.get().load(ApiSinhVien.url+"GetImage/"+tenfile[0]).into(holder.imgSv);
 //            Log.d("IMAT", tenfile[0]);
-        }else Picasso.get().load(R.drawable.add_image).into(holder.imgGv);
+        }else Picasso.get().load(R.drawable.add_image).into(holder.imgSv);
         return view;
     }
 }

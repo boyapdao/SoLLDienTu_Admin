@@ -566,7 +566,7 @@ public class TeacherFragment extends Fragment {
             String[] tenfile=gv.getAnh().split("\\.");
             Glide.with(getActivity()).load(ApiGiaoVien.url+"GetImage/"+tenfile[0]).into(img_gv_sua);
         }
-        edt_Ten.setText(gv.getTenGV());
+        edt_Ten.setText(gv.getTenGv());
         edt_NS.setText(gv.getNgaySinh());
         edt_Que.setText(gv.getQueQuan());
         if (gv.getGioiTinh()==0)

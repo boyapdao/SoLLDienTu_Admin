@@ -9,17 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Thêm lớp học"
+        android:text="Sửa lớp"
         android:textColor="#F44336"
         android:textSize="30sp" />
 
     <ImageView
+        android:id="@+id/image_sua_giaovien"
         android:layout_height="150dp"
         android:layout_width="250dp"
         android:src="@drawable/add_image"
         android:layout_marginTop="20sp"
         android:layout_gravity="center"/>
-
     <TextView
         android:layout_marginTop="20sp"
         android:layout_width="match_parent"
@@ -27,8 +27,8 @@
         android:text="Mã lớp:"
         android:textColor="#000000"
         android:textSize="20sp"/>
-    <EditText
-        android:id="@+id/edt_add_MaLop"
+    <TextView
+        android:id="@+id/txt_sua_MaLop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10sp"/>
@@ -40,7 +40,7 @@
         android:textColor="#000000"
         android:textSize="20sp"/>
     <EditText
-        android:id="@+id/edt_add_TenLop"
+        android:id="@+id/edt_sua_TenLop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10sp"/>
@@ -51,26 +51,24 @@
         android:textColor="#000000"
         android:textSize="20sp"/>
     <AutoCompleteTextView
-        android:completionThreshold="1"
-        android:id="@+id/edt_add_tenGvLop"
+        android:id="@+id/edt_sua_TenGVLop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10sp" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center">
         <Button
-            android:id="@+id/btn_add_Lop"
+            android:id="@+id/btn_sua_Lop"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:text="Thêm"/>
+            android:text="Sửa"/>
         <Button
-            android:id="@+id/btn_HuyAddLop"
+            android:id="@+id/btn_HuySuaLop"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

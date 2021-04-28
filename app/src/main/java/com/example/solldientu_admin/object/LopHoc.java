@@ -3,6 +3,9 @@ package com.example.solldientu_admin.object;
 public class LopHoc {
     private String maLop,tenLop,maGv;
 
+    public LopHoc() {
+    }
+
     public LopHoc(String tenLop, String maGv) {
         this.tenLop = tenLop;
         this.maGv = maGv;
