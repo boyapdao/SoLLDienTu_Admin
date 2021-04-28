@@ -9,16 +9,6 @@ public class pMonHoc {
     private int page, pageSize, total;
     ArrayList<MonHoc> data;
 
-    public pMonHoc() {
-    }
-
-    public pMonHoc(int page, int pageSize, int totalMH, ArrayList<MonHoc> data) {
-        this.page = page;
-        this.pageSize = pageSize;
-        this.total = totalMH;
-        this.data = data;
-    }
-
     public int getPage() {
         return page;
     }
@@ -35,12 +25,12 @@ public class pMonHoc {
         this.pageSize = pageSize;
     }
 
-    public int getTotalMH() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotalMH(int totalMH) {
-        this.total = totalMH;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     public ArrayList<MonHoc> getData() {
@@ -50,4 +40,17 @@ public class pMonHoc {
     public void setData(ArrayList<MonHoc> data) {
         this.data = data;
     }
+
+    public pMonHoc(int page, int pageSize, int total, ArrayList<MonHoc> data) {
+        this.page = page;
+        this.pageSize = pageSize;
+        this.total = total;
+        this.data = data;
+    }
+
+    public pMonHoc() {
+
+    }
+
+
 }

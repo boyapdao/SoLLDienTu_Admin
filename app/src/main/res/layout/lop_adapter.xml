@@ -12,7 +12,7 @@
         android:layout_height="120sp"
         android:scaleType="centerCrop"
         android:layout_centerVertical="true"
-        android:src="@drawable/add_image" />
+        android:src="@drawable/ic_class1" />
     <TextView
         android:id="@+id/tv_maLop"
         android:layout_width="wrap_content"

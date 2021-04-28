@@ -130,7 +130,7 @@ public class SubjectsFragment extends Fragment {
             public void onResponse(Call<pMonHoc> call, Response<pMonHoc> response) {
                 pd.dismiss();
                 ArrayList<MonHoc> ds2=response.body().getData();
-                totalMH=response.body().getTotalMH();
+                totalMH=response.body().getTotal();
 
                 if (ds2.size()>0){
                     for (int i=0;i < ds2.size(); i++)
@@ -215,7 +215,7 @@ public class SubjectsFragment extends Fragment {
                         pd.dismiss();
 
                         ArrayList<MonHoc> ds_mh1=response.body().getData();
-                        totalMH=response.body().getTotalMH();
+                        totalMH=response.body().getTotal();
 
                         if (ds_mh1.size()>0){
                             for (int i=0;i < ds_mh1.size(); i++)
@@ -299,9 +299,10 @@ public class SubjectsFragment extends Fragment {
                 if (ds_2.size()>0){
                     for (int i=0;i<ds_2.size();i++)
                         ds_mh.add(ds_2.get(i));
+                    adapter.notifyDataSetChanged();
+                    pd.dismiss();
                 }
-                adapter.notifyDataSetChanged();
-                pd.dismiss();
+
             }
 
             @Override

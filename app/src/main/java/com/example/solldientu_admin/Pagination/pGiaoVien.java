@@ -8,14 +8,11 @@ public class pGiaoVien {
     private int page, pageSize, total;
     ArrayList<GiaoVien> data;
 
-    public pGiaoVien(int page, int pageSize, int totalGv, ArrayList<GiaoVien> data) {
+    public pGiaoVien(int page, int pageSize, int total, ArrayList<GiaoVien> data) {
         this.page = page;
         this.pageSize = pageSize;
-        this.total = totalGv;
+        this.total = total;
         this.data = data;
-    }
-
-    public pGiaoVien() {
     }
 
     public int getPage() {

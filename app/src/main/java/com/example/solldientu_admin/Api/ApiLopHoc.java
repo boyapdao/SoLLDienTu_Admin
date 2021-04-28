@@ -58,4 +58,7 @@ public interface ApiLopHoc {
 
     @DELETE("delete-lop/{id}")
     Call<Void> sendDelete(@Path("id")String id);
+
+    @POST("search")
+    Call<pLopHoc> searchTenLop (@Body HashMap<String,String> page);
 }

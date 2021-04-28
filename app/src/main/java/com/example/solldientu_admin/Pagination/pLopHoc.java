@@ -8,13 +8,6 @@ public class pLopHoc {
     private  int page,pageSize,total;
     ArrayList<LopHoc> data;
 
-    public pLopHoc(int page, int pageSize, int totalLop, ArrayList<LopHoc> data) {
-        this.page = page;
-        this.pageSize = pageSize;
-        this.total = totalLop;
-        this.data = data;
-    }
-
     public int getPage() {
         return page;
     }
@@ -44,6 +37,13 @@ public class pLopHoc {
     }
 
     public void setData(ArrayList<LopHoc> data) {
+        this.data = data;
+    }
+
+    public pLopHoc(int page, int pageSize, int total, ArrayList<LopHoc> data) {
+        this.page = page;
+        this.pageSize = pageSize;
+        this.total = total;
         this.data = data;
     }
 }

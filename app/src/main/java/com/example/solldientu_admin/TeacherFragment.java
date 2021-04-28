@@ -473,7 +473,7 @@ public class TeacherFragment extends Fragment {
                 pd.dismiss();
 
                 ArrayList<GiaoVien> ds_gv1=response.body().getData();
-                totalGV=response.body().getTotal();
+                totalGV=response.body() .getTotal();
 
                 if (ds_gv1.size()>0){
                     for (int i=0;i < ds_gv1.size(); i++)
@@ -542,7 +542,9 @@ public class TeacherFragment extends Fragment {
             }
         });
         alert.show();
+
     }
+
 
     private void Update() {
         Dialog dialog=new Dialog(getActivity());
