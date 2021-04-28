@@ -114,7 +114,7 @@ public class ClassFragment extends Fragment {
                 Button btn_addLop,btn_addHuyAdd;
 
                 edt_tenLop = (EditText)dialogAddClass.findViewById(R.id.edt_add_TenLop);
-                edt_maGV=(AutoCompleteTextView)dialogAddClass.findViewById(R.id.edt_add_maGvLop);
+                edt_maGV=(AutoCompleteTextView)dialogAddClass.findViewById(R.id.edt_add_tenGvLop);
 
                 btn_addLop= (Button)dialogAddClass.findViewById(R.id.btn_add_Lop);
                 btn_addHuyAdd = (Button)dialogAddClass.findViewById(R.id.btn_HuyAddLop);
