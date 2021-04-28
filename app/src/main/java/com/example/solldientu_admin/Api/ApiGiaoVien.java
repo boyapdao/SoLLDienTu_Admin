@@ -28,7 +28,7 @@ import retrofit2.http.Path;
 
 public interface ApiGiaoVien {
 
-    String url="https://solldientu-yg3.conveyor.cloud/api/GiaoVien/";
+    String url="https://solldientu.conveyor.cloud/api/GiaoVien/";
 
     OkHttpClient client=new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)

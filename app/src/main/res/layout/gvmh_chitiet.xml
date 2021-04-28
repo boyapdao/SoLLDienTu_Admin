@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="500dp"
+    android:padding="10sp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Chi tiết"
+        android:textColor="#F44336"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/img_gvmhCT"
+        android:layout_height="150dp"
+        android:layout_width="250dp"
+        android:src="@drawable/ic_person_25"
+        android:layout_marginTop="20sp"
+        android:layout_below="@id/text1"
+        android:layout_centerHorizontal="true"/>
+
+    <TableLayout
+        android:id="@+id/table1"
+        android:layout_below="@id/img_gvmhCT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="Tên:"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/tv_ten"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gia Khuê"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày sinh: "
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/tv_NS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:text="23/11/2000"
+                android:textSize="20sp"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giới tính:"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/tv_GT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nữ"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Môn dạy: "
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/tv_MonDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+        </TableRow>
+    </TableLayout>
+    <ImageView
+        android:id="@+id/img_more"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_above="@id/linear1"
+        android:layout_alignRight="@id/linear1"
+        android:src="@drawable/ic_details_24"/>
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/table1"
+        android:gravity="center">
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/test"
+            android:text="Xác nhận"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

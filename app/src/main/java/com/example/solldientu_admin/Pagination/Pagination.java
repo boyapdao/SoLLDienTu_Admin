@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 public class Pagination {
     int page, pageSize;
-    String tenGV;
     HashMap<String, String> hm=new HashMap();
 
     public Pagination(int page, int pageSize, String Ten) {
@@ -32,14 +31,6 @@ public class Pagination {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
-    }
-
-    public String getTenGV() {
-        return tenGV;
-    }
-
-    public void setTenGV(String tenGV) {
-        this.tenGV = tenGV;
     }
 
     public HashMap<String, String> getHm() {

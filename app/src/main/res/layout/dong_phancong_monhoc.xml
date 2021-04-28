@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/corner_lv_ct_order"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardElevation="6dp"
+        app:cardCornerRadius="12dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/image_Mh"
+                android:padding="10sp"
+                android:layout_width="80sp"
+                android:layout_height="80sp"
+                android:scaleType="centerCrop"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_book_subject" />
+            <TextView
+                android:id="@+id/tv_TenMon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/image_Mh"
+                android:text="Tên môn"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="#3F51B5"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/tv_soTC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/image_Mh"
+                android:layout_below="@+id/tv_TenMon"
+                android:text="Số tín chỉ: "
+                android:textSize="18sp"
+                android:textColor="#4CAF50"
+                android:layout_marginTop="8sp"/>
+            <ImageView
+                android:id="@+id/img_delete"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignRight="@id/tv_soTC"
+                android:layout_alignBottom="@id/tv_soTC"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/delete"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

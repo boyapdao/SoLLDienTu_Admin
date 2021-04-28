@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 new ActionBarDrawerToggle(MainActivity.this,drawerLayout,R.string.open,R.string.close);
         drawerToggle.syncState();//đồng bộ
     }
+
     private void setFirstItemNavigationView(){// Thiét lập navigation được hiển thị khi start
         navigationView.getMenu().performIdentifierAction(R.id.mn_Home, 0);
         navigationView.setCheckedItem(R.id.mn_Home);
