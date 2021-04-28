@@ -60,4 +60,8 @@ public interface ApiSinhVien {
     @DELETE("delete-sinhvien/{id}")
     Call<Void> sendDeleteSV(@Path("id")String id);
 
+    @POST("search")
+    Call<pSinhVien> searchSV (@Body HashMap<String,String> page);
+
+
 }

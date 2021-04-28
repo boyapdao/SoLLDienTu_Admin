@@ -61,6 +61,9 @@ public interface ApiGiaoVien {
     @POST("get-all2")
     Call<pGiaoVien> get_All2(@Body HashMap<String, String> page);
 
+    @GET("get-by-id/{id}")
+    Call<GiaoVien> getById(@Path("id")String id);
+
     @POST("search")
     Call<pGiaoVien> search(@Body HashMap<String, String> page);
 

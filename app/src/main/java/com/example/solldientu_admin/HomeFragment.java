@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment__home, container, false);
         Init();
-        Events();
+//        Events();
         return view;
     }
 

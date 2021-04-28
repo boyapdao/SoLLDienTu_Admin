@@ -9,7 +9,7 @@ public class GiaoVien {
 
     @Override
     public String toString() {
-        return tenGv ;
+        return tenGv+"-"+maGv ;
 
     }
 

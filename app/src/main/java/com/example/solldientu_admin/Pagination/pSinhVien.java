@@ -6,7 +6,7 @@ import com.example.solldientu_admin.object.SinhVien;
 import java.util.ArrayList;
 
 public class pSinhVien {
-    private  int page,pageSize,totalLop;
+    private  int page,pageSize,total;
     ArrayList<SinhVien> data;
 
     public int getPage() {
@@ -25,12 +25,12 @@ public class pSinhVien {
         this.pageSize = pageSize;
     }
 
-    public int getTotalLop() {
-        return totalLop;
+    public int getTotal() {
+        return total;
     }
 
-    public void setTotalLop(int totalLop) {
-        this.totalLop = totalLop;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     public ArrayList<SinhVien> getData() {
@@ -41,10 +41,10 @@ public class pSinhVien {
         this.data = data;
     }
 
-    public pSinhVien(int page, int pageSize, int totalLop, ArrayList<SinhVien> data) {
+    public pSinhVien(int page, int pageSize, int total, ArrayList<SinhVien> data) {
         this.page = page;
         this.pageSize = pageSize;
-        this.totalLop = totalLop;
+        this.total = total;
         this.data = data;
     }
 }

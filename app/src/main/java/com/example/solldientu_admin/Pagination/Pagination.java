@@ -4,19 +4,6 @@ import java.util.HashMap;
 
 public class Pagination {
     int page, pageSize;
-    String tenGV;
-    HashMap<String, String> hm=new HashMap();
-
-    public Pagination(int page, int pageSize, String Ten) {
-        this.page = page;
-        this.pageSize = pageSize;
-        hm.put("page", page+"");
-        hm.put("pageSize", pageSize+"");
-        hm.put("ten", Ten);
-    }
-
-    public Pagination() {
-    }
 
     public int getPage() {
         return page;
@@ -34,12 +21,12 @@ public class Pagination {
         this.pageSize = pageSize;
     }
 
-    public String getTenGV() {
-        return tenGV;
+    public String getTen() {
+        return ten;
     }
 
-    public void setTenGV(String tenGV) {
-        this.tenGV = tenGV;
+    public void setTen(String ten) {
+        this.ten = ten;
     }
 
     public HashMap<String, String> getHm() {
@@ -49,4 +36,17 @@ public class Pagination {
     public void setHm(HashMap<String, String> hm) {
         this.hm = hm;
     }
+
+    String ten;
+    HashMap<String, String> hm = new HashMap();
+
+    public Pagination(int page, int pageSize, String Ten) {
+        this.page = page;
+        this.pageSize = pageSize;
+        hm.put("page", page + "");
+        hm.put("pageSize", pageSize + "");
+        hm.put("ten", Ten);
+    }
+
+
 }

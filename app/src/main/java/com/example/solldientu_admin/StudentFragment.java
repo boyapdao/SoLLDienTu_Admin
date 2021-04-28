@@ -13,15 +13,22 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -39,6 +46,7 @@ import com.example.solldientu_admin.Adapter.SinhVienAdapter;
 import com.example.solldientu_admin.Api.ApiGiaoVien;
 import com.example.solldientu_admin.Api.ApiSinhVien;
 import com.example.solldientu_admin.Pagination.Pagination;
+import com.example.solldientu_admin.Pagination.pGiaoVien;
 import com.example.solldientu_admin.Pagination.pSinhVien;
 import com.example.solldientu_admin.object.GiaoVien;
 import com.example.solldientu_admin.object.SinhVien;
@@ -104,6 +112,7 @@ public class StudentFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setHasOptionsMenu(true);
     }
 
     View view;
@@ -118,7 +127,7 @@ public class StudentFragment extends Fragment {
     int pos = -1;
     boolean ThayAnh = false, ThemAnh = false;//Check thay ảnh mới
     ProgressDialog pd;
-    int page = 1, pageSize = 888, totalSV = -1;
+    int page = 1, pageSize = 8, totalSV = -1;
     String QueryText = "";
     boolean userScrolled = false;// Check scroll
     int userScrolledCount = 0;// count scroll
@@ -146,7 +155,7 @@ public class StudentFragment extends Fragment {
             public void onResponse(Call<pSinhVien> call, Response<pSinhVien> response) {
                 pd.dismiss();
                 ArrayList<SinhVien> ds_sv1 = response.body().getData();
-                totalSV = response.body().getTotalLop();
+                totalSV = response.body().getTotal();
                 if (ds_sv1.size() > 0) {
                     for (int i = 0; i < ds_sv1.size(); i++) {
                         ds_SV.add(ds_sv1.get(i));
@@ -204,7 +213,7 @@ public class StudentFragment extends Fragment {
                             for (int i = 0; i < list_Ma.size(); i++) {
                                 arrMaLopSV.add(list_Ma.get(i));
                             }
-                            Toast.makeText(getActivity(), " size1 : " + list_Ma + " size2 : " + arrMaLopSV.size(), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getActivity(), " size1 : " + list_Ma + " size2 : " + arrMaLopSV.size(), Toast.LENGTH_LONG).show();
 
                         }
                     }
@@ -307,7 +316,85 @@ public class StudentFragment extends Fragment {
                 return false;
             }
         });
+        lvStudent.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (userScrolledCount>0){
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (scrollState== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
+                            {
+                                userScrolled=true;
+                                userScrolledCount=0;
+                            }
+                        }
+                    }, 1500);
+                }else {
+                    if (scrollState== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
+                    {
+                        userScrolled=true;
+                        userScrolledCount++;
+                    }
+                }
+            }
 
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (userScrolled && firstVisibleItem+visibleItemCount == totalItemCount && QueryText.equals(""))
+                    if (ds_SV.size()<totalSV)
+                    {
+                        userScrolled=false;
+                        UpdateListView();
+                    }
+                if (userScrolled && firstVisibleItem+visibleItemCount == totalItemCount && !QueryText.equals(""))
+                    if (ds_SV.size()<totalSV)
+                    {
+                        userScrolled=false;
+                        UpdateListView2();
+                    }
+            }
+        });
+
+    }
+
+    private void UpdateListView() {
+        bottomLayout.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                page++;
+//                Get_All(page, pageSize);
+                Pagination p=new Pagination(page, pageSize,"");
+                ApiSinhVien.apiService.get_AllSV2(p.getHm()).enqueue(new Callback<pSinhVien>() {
+                    @Override
+                    public void onResponse(Call<pSinhVien> call, Response<pSinhVien> response) {
+                        pd.dismiss();
+
+                        ArrayList<SinhVien> ds_sv1=response.body().getData();
+                        totalSV=response.body().getTotal();
+
+                        if (ds_sv1.size()>0){
+                            for (int i=0;i < ds_sv1.size(); i++)
+                            {
+                                ds_SV.add(ds_sv1.get(i));
+                            }
+                            adapter.notifyDataSetChanged();
+                            bottomLayout.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<pSinhVien> call, Throwable t) {
+
+                    }
+                });
+//                Toast.makeText(getActivity(), "Items Updated.", Toast.LENGTH_SHORT).show();
+            }
+        }, 1000);
+    }
+
+    private void UpdateListView2() {
     }
 
 
@@ -316,6 +403,7 @@ public class StudentFragment extends Fragment {
         lvStudent = view.findViewById(R.id.lv_student);
         adapter = new SinhVienAdapter(getActivity(), R.layout.sinhvien_adapter, ds_SV);
         lvStudent.setAdapter(adapter);
+        bottomLayout=getActivity().findViewById(R.id.loadItemsLayout_listView);
     }
 
     private void Chooes_Photo() {//Chọn hình
@@ -374,6 +462,66 @@ public class StudentFragment extends Fragment {
     }
 
     @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem mSearchMenu=menu.findItem(R.id.mn_search);
+        SearchView searchView= (SearchView) mSearchMenu.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Get_AllSearch(page, pageSize, query);
+                Toast.makeText(getActivity(), "abc!", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                QueryText=newText;
+                return false;
+            }
+        });
+        MenuItem mn=menu.findItem(R.id.mn_refresh);
+        mn.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                page=1;pageSize=8;QueryText="";
+                ds_SV.clear();
+                Get_All(page,pageSize);
+                return false;
+            }
+        });
+    }
+
+    private void Get_AllSearch(int page, int pageSize, String query) {
+        pd=new ProgressDialog(getActivity());
+        pd.setMessage("Đang tìm kiếm dữ liệu....");
+        pd.show();
+
+        ds_SV.clear();
+        Pagination p=new Pagination(page, pageSize,query);
+        ApiSinhVien.apiService.searchSV(p.getHm()).enqueue(new Callback<pSinhVien>() {
+            @Override
+            public void onResponse(Call<pSinhVien> call, Response<pSinhVien> response) {
+                pd.dismiss();
+
+                ArrayList<SinhVien> ds_sv1=response.body().getData();
+                totalSV=response.body().getTotal();
+
+                if (ds_sv1.size()>0){
+                    for (int i=0;i < ds_sv1.size(); i++)
+                        ds_SV.add(ds_sv1.get(i));
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<pSinhVien> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
@@ -395,9 +543,7 @@ public class StudentFragment extends Fragment {
         EditText edt_TenSV, edt_NamSinh, edt_ThuongTru, edt_TamTru, edt_Sdt;
         TextView txt_maSV;
 
-        AutoCompleteTextView edt_MaLop;
-        ArrayList<String> arrMaLopSV = new ArrayList<>();
-        ArrayAdapter arrayAdapter;
+
 
         RadioButton rb_Nam, rb_Nu;
         Button btn_Sua, btn_Huy;
@@ -408,7 +554,7 @@ public class StudentFragment extends Fragment {
         edt_ThuongTru = dialog.findViewById(R.id.edt_sua_ThuongTruSV);
         edt_TamTru = dialog.findViewById(R.id.edt_sua_TamTruSV);
         edt_Sdt = dialog.findViewById(R.id.edt_sua_SdtSV);
-        edt_MaLop = dialog.findViewById(R.id.edt_sua_MaLopSV);
+
 
 
         rb_Nam = dialog.findViewById(R.id.rb_NamSV);
@@ -419,6 +565,10 @@ public class StudentFragment extends Fragment {
 
         img_sv_sua = dialog.findViewById(R.id.image_sua_sinhvien);
 
+        AutoCompleteTextView edt_MaLopSV;
+        edt_MaLopSV = dialog.findViewById(R.id.edt_sua_MaLopSV);
+        ArrayList<String> list_maLop = new ArrayList<>();
+        ArrayAdapter arrayAdapter;
         ApiSinhVien.apiService.getallMaLopSV().enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
@@ -426,9 +576,12 @@ public class StudentFragment extends Fragment {
                 Log.d("MANG", "onResponse: "+list_Ma.size());
                 if (list_Ma.size() > 0) {
                     for (int i = 0; i < list_Ma.size(); i++) {
-                        arrMaLopSV.add(list_Ma.get(i));
+                        list_maLop.add(list_Ma.get(i));
+                        Log.d("MANGAFTER", "onResponse: "+list_maLop.get(i));
                     }
-                    Log.d("MANGAFTER", "onResponse: "+arrMaLopSV.size());
+                    Log.d("MANGAFTER", "onResponse: "+list_maLop.size());
+                    Toast.makeText(getActivity(), "Size "+list_Ma.size()+"Size1:  "+list_maLop.size(), Toast.LENGTH_SHORT).show();
+
 
                 }
             }
@@ -438,8 +591,9 @@ public class StudentFragment extends Fragment {
 
             }
         });
-        arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.select_dialog_item,arrMaLopSV);
-        edt_MaLop.setAdapter(arrayAdapter);
+        arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1,list_maLop);
+        edt_MaLopSV.setAdapter(arrayAdapter);
+
 
         SinhVien sv = ds_SV.get(pos);
         txt_maSV.setText(sv.getMaSv());
@@ -453,7 +607,7 @@ public class StudentFragment extends Fragment {
         edt_ThuongTru.setText(sv.getThuongTru());
         edt_TamTru.setText(sv.getTamTru());
         edt_Sdt.setText(sv.getSdt());
-        edt_MaLop.setText(sv.getMaLop());
+        edt_MaLopSV.setText(sv.getMaLop());
         btn_Huy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -466,74 +620,74 @@ public class StudentFragment extends Fragment {
                 Chooes_Photo();
             }
         });
-//        btn_Sua.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                pd=new ProgressDialog(getActivity());
-//                pd.setMessage("Đang cập nhật.....");
-//                pd.show();
-//                String maSV,Ten, ThuongTru, TamTru, Anh = "", NS, MaLop, Sdt;
-//                int GT;
-//                maSV = txt_maSV.getText().toString();
-//                Ten = edt_TenSV.getText().toString();
-//                ThuongTru = edt_ThuongTru.getText().toString();
-//                TamTru = edt_TamTru.getText().toString();
-//                NS = edt_NamSinh.getText().toString();
-//                MaLop = edt_MaLop.getText().toString();
-//                Sdt = edt_Sdt.getText().toString();
-//                if (rb_Nam.isChecked()) {
-//                    GT = 1;
-//                } else {
-//                    GT = 0;
-//                }
-//                if (ThemAnh) {
-//                    //Add Image
-//                    File file = new File(realpath);
-//                    String file_path = file.getAbsolutePath();
-//
-//                    String[] tenfile1 = file_path.split("/");
-//                    //        Log.d("FILE_PATH", file_path);
-//                    //trường hợp trùng tên file thì + thêm thời gian vào tên file
-//                    String[] tenfile2 = tenfile1[5].split("\\.");
-//
-//                    //Gán vào ảnh
-//                    tenfile1[5] = tenfile2[0] + System.currentTimeMillis() + "." + tenfile2[1];
-//                    Anh = tenfile1[5];
-//                    RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//                    MultipartBody.Part body = MultipartBody.Part.createFormData("files", Anh, requestBody);
-//                    //API ThemAnh
-//                    ApiSinhVien.apiService.UploadPhoto(body).enqueue(new Callback<String>() {
-//                        @Override
-//                        public void onResponse(Call<String> call, Response<String> response) {
-//                            Toast.makeText(getActivity(), "ok success Image! " + response.toString(), Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<String> call, Throwable t) {
-//                            Toast.makeText(getActivity(), "oh fail Image! " + t.getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//                    SinhVien sv = new SinhVien(Ten, NS, GT, ThuongTru, TamTru, Sdt, Anh, MaLop);
-//                    ApiSinhVien.apiService.updateSinhVien(ds_SV.get(pos).getMaSv(),sv).enqueue(new Callback<Void>() {
-//                        @Override
-//                        public void onResponse(Call<Void> call, Response<Void> response) {
-//                            pd.dismiss();
-//                            Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
-//                            page = 1;
-//                            ds_SV.clear();
-//                            Get_All(page,pageSize);
-//                            dialog.cancel();
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<Void> call, Throwable t) {
-//                            Toast.makeText(getActivity(), "Fail!", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//
-//                }
-//            }
-//        });
+        btn_Sua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pd=new ProgressDialog(getActivity());
+                pd.setMessage("Đang cập nhật.....");
+                pd.show();
+                String maSV,Ten, ThuongTru, TamTru, Anh = "", NS, MaLop, Sdt;
+                int GT;
+                maSV = txt_maSV.getText().toString();
+                Ten = edt_TenSV.getText().toString();
+                ThuongTru = edt_ThuongTru.getText().toString();
+                TamTru = edt_TamTru.getText().toString();
+                NS = edt_NamSinh.getText().toString();
+                MaLop = edt_MaLopSV.getText().toString();
+                Sdt = edt_Sdt.getText().toString();
+                if (rb_Nam.isChecked()) {
+                    GT = 1;
+                } else {
+                    GT = 0;
+                }
+                if (ThemAnh) {
+                    //Add Image
+                    File file = new File(realpath);
+                    String file_path = file.getAbsolutePath();
+
+                    String[] tenfile1 = file_path.split("/");
+                    //        Log.d("FILE_PATH", file_path);
+                    //trường hợp trùng tên file thì + thêm thời gian vào tên file
+                    String[] tenfile2 = tenfile1[5].split("\\.");
+
+                    //Gán vào ảnh
+                    tenfile1[5] = tenfile2[0] + System.currentTimeMillis() + "." + tenfile2[1];
+                    Anh = tenfile1[5];
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                    MultipartBody.Part body = MultipartBody.Part.createFormData("files", Anh, requestBody);
+                    //API ThemAnh
+                    ApiSinhVien.apiService.UploadPhoto(body).enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            Toast.makeText(getActivity(), "ok success Image! " + response.toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Toast.makeText(getActivity(), "oh fail Image! " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    SinhVien sv = new SinhVien(Ten, NS, GT, ThuongTru, TamTru, Sdt, Anh, MaLop);
+                    ApiSinhVien.apiService.updateSinhVien(ds_SV.get(pos).getMaSv(),sv).enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            pd.dismiss();
+                            Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
+                            page = 1;
+                            ds_SV.clear();
+                            Get_All(page,pageSize);
+                            dialog.cancel();
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            Toast.makeText(getActivity(), "Fail!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
+        });
 
         dialog.show();
 
