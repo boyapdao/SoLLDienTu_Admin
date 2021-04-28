@@ -20,6 +20,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -52,6 +53,9 @@ public interface ApiSinhVien {
     // lấy tất cả mã lớp
     @GET("get-allMaLopSV")
     Call<List<String>> getallMaLopSV();
+
+    @PUT("update-sinhvien/{id}")
+    Call<Void> updateSinhVien(@Path("id")String id,@Body SinhVien sv);
 
     @DELETE("delete-sinhvien/{id}")
     Call<Void> sendDeleteSV(@Path("id")String id);
