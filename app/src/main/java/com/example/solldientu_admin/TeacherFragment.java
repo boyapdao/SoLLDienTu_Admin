@@ -221,11 +221,11 @@ public class TeacherFragment extends Fragment {
                             String[] tenfile1=file_path.split("/");
                             //        Log.d("FILE_PATH", file_path);
                             //trường hợp trùng tên file thì + thêm thời gian vào tên file
-                            String[] tenfile2=tenfile1[5].split("\\.");
+                            String[] tenfile2=tenfile1[tenfile1.length-1].split("\\.");
 
                             //Gán vào ảnh
-                            tenfile1[5]=tenfile2[0]+System.currentTimeMillis()+"."+tenfile2[1];
-                            Anh=tenfile1[5];
+                            tenfile1[tenfile1.length-1]=tenfile2[0]+System.currentTimeMillis()+"."+tenfile2[1];
+                            Anh=tenfile1[tenfile1.length-1];
 
                             RequestBody requestBody=RequestBody.create(MediaType.parse("multipart/form-data"), file);
                             MultipartBody.Part body=MultipartBody.Part.createFormData("files", Anh, requestBody);
@@ -620,11 +620,11 @@ public class TeacherFragment extends Fragment {
                     String[] tenfile1=file_path.split("/");
                     //        Log.d("FILE_PATH", file_path);
                     //trường hợp trùng tên file thì + thêm thời gian vào tên file
-                    String[] tenfile2=tenfile1[5].split("\\.");
+                    String[] tenfile2=tenfile1[tenfile1.length-1].split("\\.");
 
                     //Gán vào Anh
-                    tenfile1[5]=tenfile2[0]+System.currentTimeMillis()+"."+tenfile2[1];
-                    Anh=tenfile1[5];
+                    tenfile1[tenfile1.length-1]=tenfile2[0]+System.currentTimeMillis()+"."+tenfile2[1];
+                    Anh=tenfile1[tenfile1.length-1];
 
                     RequestBody requestBody=RequestBody.create(MediaType.parse("multipart/form-data"), file);
                     MultipartBody.Part body=MultipartBody.Part.createFormData("files", Anh, requestBody);
@@ -652,11 +652,11 @@ public class TeacherFragment extends Fragment {
                         String[] tenfile1=file_path.split("/");
                         //        Log.d("FILE_PATH", file_path);
                         //trường hợp trùng tên file thì + thêm thời gian vào tên file
-                        String[] tenfile2=tenfile1[5].split("\\.");
+                        String[] tenfile2=tenfile1[tenfile1.length-1].split("\\.");
 
                         //Gán vào Anh
-                        tenfile1[5]=tenfile2[0]+System.currentTimeMillis()+"."+tenfile2[1];
-                        Anh=tenfile1[5];
+                        tenfile1[tenfile1.length-1]=tenfile2[0]+System.currentTimeMillis()+"."+tenfile2[1];
+                        Anh=tenfile1[tenfile1.length-1];
 
                         RequestBody requestBody=RequestBody.create(MediaType.parse("multipart/form-data"), file);
                         MultipartBody.Part body=MultipartBody.Part.createFormData("files", Anh, requestBody);

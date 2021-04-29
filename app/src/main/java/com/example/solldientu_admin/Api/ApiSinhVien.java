@@ -25,7 +25,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface ApiSinhVien {
-    String url="https://solldientu-yg3.conveyor.cloud/api/SinhVien/";
+    String url="https://solldientu.conveyor.cloud/api/SinhVien/";
 
     Gson gson=new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")

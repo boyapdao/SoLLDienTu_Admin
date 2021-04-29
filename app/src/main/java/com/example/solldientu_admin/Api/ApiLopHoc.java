@@ -22,7 +22,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiLopHoc {
-    String url="https://solldientu-yg3.conveyor.cloud/api/Lop/";
+    String url="https://solldientu.conveyor.cloud/api/Lop/";
 
     OkHttpClient client=new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)

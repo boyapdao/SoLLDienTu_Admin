@@ -232,6 +232,7 @@ public class SubjectsFragment extends Fragment {
 
                     }
                 });
+                bottomLayout.setVisibility(View.GONE);
             }
         },1500);
     }
