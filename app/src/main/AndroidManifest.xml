@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SoLLDienTu_Admin"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AssignmentActivity"></activity>
+        <activity android:name=".ResultActivity"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

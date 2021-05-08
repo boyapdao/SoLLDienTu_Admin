@@ -1,6 +1,7 @@
-package com.example.solldientu_admin;
+package com.example.solldientu_admin.Fragment;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -28,11 +29,13 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -40,13 +43,17 @@ import com.example.solldientu_admin.Adapter.GiaoVienAdapter;
 import com.example.solldientu_admin.Api.ApiGiaoVien;
 import com.example.solldientu_admin.Pagination.Pagination;
 import com.example.solldientu_admin.Pagination.pGiaoVien;
+import com.example.solldientu_admin.R;
 import com.example.solldientu_admin.object.GiaoVien;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -169,100 +176,7 @@ public class TeacherFragment extends Fragment {
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog=new Dialog(getActivity());
-                dialog.setContentView(R.layout.giaovien_them);
-
-                EditText edt_Ten, edt_NS, edt_Que;
-                RadioButton rb_Nam, rb_Nu;
-                Button btn_add, btn_Huy;
-
-                edt_Ten=dialog.findViewById(R.id.edt_add_TenGV);
-                edt_NS=dialog.findViewById(R.id.edt_add_NS);
-                edt_Que=dialog.findViewById(R.id.edt_add_Que);
-                btn_add=dialog.findViewById(R.id.btn_add_GV);
-                btn_Huy=dialog.findViewById(R.id.btn_Huy);
-                rb_Nam=dialog.findViewById(R.id.rb_Nam);
-                rb_Nu=dialog.findViewById(R.id.rb_Nu);
-                img_add=dialog.findViewById(R.id.image_add_giaovien);
-
-                img_add.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Chooes_Photo();
-                    }
-                });
-                btn_Huy.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.cancel();
-                    }
-                });
-                btn_add.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        pd=new ProgressDialog(getActivity());
-                        pd.setMessage("Đang thêm giáo viên.....");
-                        pd.show();
-
-                        String Ten, Que, Anh="", NS;
-                        int GT;
-                        Ten=edt_Ten.getText().toString();
-                        Que=edt_Que.getText().toString();
-                        NS=edt_NS.getText().toString();
-                        if (rb_Nam.isChecked())
-                            GT=1;
-                        else GT=0;
-
-                        if (ThemAnh){
-                            //Add Image
-                            File file=new File(realpath);
-                            String file_path=file.getAbsolutePath();
-
-                            String[] tenfile1=file_path.split("/");
-                            //        Log.d("FILE_PATH", file_path);
-                            //trường hợp trùng tên file thì + thêm thời gian vào tên file
-                            String[] tenfile2=tenfile1[tenfile1.length-1].split("\\.");
-
-                            //Gán vào ảnh
-                            tenfile1[tenfile1.length-1]=tenfile2[0]+System.currentTimeMillis()+"."+tenfile2[1];
-                            Anh=tenfile1[tenfile1.length-1];
-
-                            RequestBody requestBody=RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                            MultipartBody.Part body=MultipartBody.Part.createFormData("files", Anh, requestBody);
-
-                            //API ThemAnh
-                            ApiGiaoVien.apiService.UploadPhoto(body).enqueue(new Callback<String>() {
-                                @Override
-                                public void onResponse(Call<String> call, Response<String> response) {
-                                    Toast.makeText(getActivity(), "ok success Image! "+response.toString(), Toast.LENGTH_SHORT).show();
-                                }
-
-                                @Override
-                                public void onFailure(Call<String> call, Throwable t) {
-                                    Toast.makeText(getActivity(), "oh fail Image! "+t.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                        //new object
-                        GiaoVien gv=new GiaoVien(Ten, Que, Anh, NS, GT);
-                        ApiGiaoVien.apiService.sendPosts(gv).enqueue(new Callback<GiaoVien>() {
-                            @Override
-                            public void onResponse(Call<GiaoVien> call, Response<GiaoVien> response) {
-                                pd.dismiss();
-                                Toast.makeText(getActivity(), "ok!", Toast.LENGTH_SHORT).show();
-                                ds_GV.clear();
-                                page=1;
-                                Get_All(page, pageSize);
-                                dialog.cancel();
-                            }
-                            @Override
-                            public void onFailure(Call<GiaoVien> call, Throwable t) {
-                                Toast.makeText(getActivity(), "fail!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
-                dialog.show();
+                Add();
             }
         });
         lvTeacher.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -311,6 +225,152 @@ public class TeacherFragment extends Fragment {
                     }
             }
         });
+    }
+
+    private void Add() {
+        Dialog dialog=new Dialog(getActivity());
+        dialog.setContentView(R.layout.giaovien_them);
+
+        EditText edt_Ten, edt_Que;
+        TextView tv_NS;
+        RadioButton rb_Nam, rb_Nu;
+        Button btn_add, btn_Huy;
+        ImageView img_Calendar;
+
+        edt_Ten=dialog.findViewById(R.id.edt_add_TenGV);
+        tv_NS=dialog.findViewById(R.id.tv_add_NS);
+        edt_Que=dialog.findViewById(R.id.edt_add_Que);
+        btn_add=dialog.findViewById(R.id.btn_add_GV);
+        btn_Huy=dialog.findViewById(R.id.btn_Huy);
+        rb_Nam=dialog.findViewById(R.id.rb_Nam);
+        rb_Nu=dialog.findViewById(R.id.rb_Nu);
+        img_Calendar=dialog.findViewById(R.id.img_Calendar);
+        img_add=dialog.findViewById(R.id.image_add_giaovien);
+
+        img_Calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChonNgay(tv_NS);
+            }
+        });
+
+        img_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Chooes_Photo();
+            }
+        });
+        btn_Huy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pd=new ProgressDialog(getActivity());
+                pd.setMessage("Đang thêm giáo viên.....");
+                pd.show();
+
+                String Ten, Que, Anh="", NS;
+                int GT;
+                Ten=edt_Ten.getText().toString();
+                Que=edt_Que.getText().toString();
+                NS=tv_NS.getText().toString();
+                if (rb_Nam.isChecked())
+                    GT=1;
+                else GT=0;
+
+                if (ThemAnh){
+                    //Add Image
+                    File file=new File(realpath);
+                    String file_path=file.getAbsolutePath();
+
+                    String[] tenfile1=file_path.split("/");
+                    //        Log.d("FILE_PATH", file_path);
+                    //trường hợp trùng tên file thì + thêm thời gian vào tên file
+                    String[] tenfile2=tenfile1[tenfile1.length-1].split("\\.");
+
+                    //Gán vào ảnh
+                    tenfile1[tenfile1.length-1]=tenfile2[0]+System.currentTimeMillis()+"."+tenfile2[1];
+                    Anh=tenfile1[tenfile1.length-1];
+
+                    RequestBody requestBody=RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                    MultipartBody.Part body=MultipartBody.Part.createFormData("files", Anh, requestBody);
+
+                    //API ThemAnh
+                    ApiGiaoVien.apiService.UploadPhoto(body).enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            Toast.makeText(getActivity(), "ok success Image! "+response.toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Toast.makeText(getActivity(), "oh fail Image! "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                //new object
+                GiaoVien gv=new GiaoVien(Ten, Que, Anh, NS, GT);
+                ApiGiaoVien.apiService.sendPosts(gv).enqueue(new Callback<GiaoVien>() {
+                    @Override
+                    public void onResponse(Call<GiaoVien> call, Response<GiaoVien> response) {
+                        pd.dismiss();
+                        Toast.makeText(getActivity(), "ok!", Toast.LENGTH_SHORT).show();
+                        ds_GV.clear();
+                        page=1;
+                        Get_All(page, pageSize);
+                        dialog.cancel();
+                    }
+                    @Override
+                    public void onFailure(Call<GiaoVien> call, Throwable t) {
+                        Toast.makeText(getActivity(), "fail!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+        dialog.show();
+    }
+
+    private void ChonNgay(TextView tv_ns) {
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+        Date DateDefault=null;
+        try {
+            DateDefault = sdf.parse(tv_ns.getText().toString());
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        SimpleDateFormat sdf_day=new SimpleDateFormat("dd");
+        SimpleDateFormat sdf_month=new SimpleDateFormat("MM");
+        SimpleDateFormat sdf_year=new SimpleDateFormat("yyyy");
+
+        int ngay=Integer.parseInt(sdf_day.format(DateDefault));
+        int thang=Integer.parseInt(sdf_month.format(DateDefault));
+        thang-=1;//Vì tháng trong DatePicker bị nên 1 ký tự
+        //Còn trong Calendar tháng từ 0-->11
+        int nam=Integer.parseInt(sdf_year.format(DateDefault));
+
+        DatePickerDialog datePickerDialog=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month+=1;
+
+                String d, m, y;
+                d=dayOfMonth+"";
+                m=month+"";
+                y=year+"";
+
+                if (dayOfMonth<10)
+                    d="0"+dayOfMonth;
+                if (month<10)
+                    m="0"+month;
+
+                tv_ns.setText(d+"/"+m+"/"+y);
+            }
+        },nam,thang,ngay);
+        datePickerDialog.show();
     }
 
     private void UpdateListView2() {//Phân trang Search
@@ -490,7 +550,6 @@ public class TeacherFragment extends Fragment {
     }
 
     private void Delete() {
-//        Log.d("MAZV", ds_GV.get(0).getMaGv()+" ZX ");
         AlertDialog.Builder alert=new AlertDialog.Builder(getActivity());
         alert.setTitle("Xóa giáo viên");
         alert.setMessage("Bạn có chắc chắn muốn xóa?");
@@ -501,25 +560,26 @@ public class TeacherFragment extends Fragment {
                 pd.setMessage("Đang xóa......");
                 pd.show();
 
-                //delete Image
-                if (!ds_GV.get(pos).getAnh().equals("")){
-                    ApiGiaoVien.apiService.DeleteImage(ds_GV.get(pos).getAnh()).enqueue(new Callback<Void>() {
-                        @Override
-                        public void onResponse(Call<Void> call, Response<Void> response) {
-//                        Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
-
-                        }
-                    });
-                }
-
                 //delete object
                 ApiGiaoVien.apiService.sendDelete(ds_GV.get(pos).getMaGv()).enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
+
+                        //delete Image
+                        if (!ds_GV.get(pos).getAnh().equals("")){
+                            ApiGiaoVien.apiService.DeleteImage(ds_GV.get(pos).getAnh()).enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                //Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+
+                                }
+                            });
+                        }
+
                         pd.dismiss();
                         Toast.makeText(getActivity(), "Đã xóa!", Toast.LENGTH_SHORT).show();
                         page=1;
@@ -530,7 +590,7 @@ public class TeacherFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-
+                        Toast.makeText(getActivity(), "Không thể xóa!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -545,17 +605,20 @@ public class TeacherFragment extends Fragment {
 
     }
 
-
     private void Update() {
         Dialog dialog=new Dialog(getActivity());
         dialog.setContentView(R.layout.giaovien_sua);
-        EditText edt_Ten, edt_NS, edt_Que;
+
+        EditText edt_Ten, edt_Que;
+        TextView tv_Sua_NS;
         RadioButton rb_Nam, rb_Nu;
         Button btn_Sua, btn_Huy;
+        ImageView img_Calendar;
 
         img_gv_sua=dialog.findViewById(R.id.image_sua_giaovien);
+        img_Calendar=dialog.findViewById(R.id.img_Calendar);
         edt_Ten=dialog.findViewById(R.id.edt_sua_TenGV);
-        edt_NS=dialog.findViewById(R.id.edt_sua_NS);
+        tv_Sua_NS=dialog.findViewById(R.id.tv_Sua_NS);
         edt_Que=dialog.findViewById(R.id.edt_sua_Que);
         rb_Nam=dialog.findViewById(R.id.rb_Nam);
         rb_Nu=dialog.findViewById(R.id.rb_Nu);
@@ -569,11 +632,19 @@ public class TeacherFragment extends Fragment {
             Glide.with(getActivity()).load(ApiGiaoVien.url+"GetImage/"+tenfile[0]).into(img_gv_sua);
         }
         edt_Ten.setText(gv.getTenGv());
-        edt_NS.setText(gv.getNgaySinh());
+        tv_Sua_NS.setText(gv.getNgaySinh());
         edt_Que.setText(gv.getQueQuan());
         if (gv.getGioiTinh()==0)
             rb_Nu.setChecked(true);
         else rb_Nam.setChecked(true);
+
+        img_Calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChonNgay(tv_Sua_NS);
+            }
+        });
+
         btn_Huy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -679,7 +750,7 @@ public class TeacherFragment extends Fragment {
                 //Update object
                 Ten=edt_Ten.getText().toString();
                 Que=edt_Que.getText().toString();
-                NS=edt_NS.getText().toString();
+                NS=tv_Sua_NS.getText().toString();
                 if (rb_Nam.isChecked())
                     GT=1;
                 else GT=0;

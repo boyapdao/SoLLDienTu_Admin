@@ -17,9 +17,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Toast;
 
+import com.example.solldientu_admin.Fragment.AssignmentFragment;
+import com.example.solldientu_admin.Fragment.ClassFragment;
+import com.example.solldientu_admin.Fragment.HomeFragment;
+import com.example.solldientu_admin.Fragment.ResultFragment;
+import com.example.solldientu_admin.Fragment.StudentFragment;
+import com.example.solldientu_admin.Fragment.SubjectsFragment;
+import com.example.solldientu_admin.Fragment.TeacherFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -116,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
                         FragmentTransaction ft6=getSupportFragmentManager().beginTransaction();
                         ft6.replace(R.id.content, fragment6, "");
                         ft6.commit();
+                        break;
+                    case R.id.mn_LogOut:
+                        finish();
                         break;
                 }
                 return false;

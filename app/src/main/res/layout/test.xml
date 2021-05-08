@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Nguyễn Gia Khuê"-->
+<!--        tools:layout_editor_absoluteX="118dp"-->
+<!--        tools:layout_editor_absoluteY="26dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Mã SV: 10118219"-->
+<!--        tools:layout_editor_absoluteX="118dp"-->
+<!--        tools:layout_editor_absoluteY="57dp" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="72dp"-->
+<!--        android:layout_height="80dp"-->
+<!--        tools:layout_editor_absoluteX="25dp"-->
+<!--        tools:layout_editor_absoluteY="27dp"-->
+<!--        tools:srcCompat="@tools:sample/avatars" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Học lớp: 101185"-->
+<!--        tools:layout_editor_absoluteX="118dp"-->
+<!--        tools:layout_editor_absoluteY="86dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView4"-->
+<!--        android:layout_width="188dp"-->
+<!--        android:layout_height="23dp"-->
+<!--        android:text="Cấu trúc DL và giải thuật"-->
+<!--        tools:layout_editor_absoluteX="97dp"-->
+<!--        tools:layout_editor_absoluteY="212dp" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView2"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="72dp"-->
+<!--        app:srcCompat="@drawable/add_image"-->
+<!--        tools:layout_editor_absoluteX="130dp"-->
+<!--        tools:layout_editor_absoluteY="129dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView5"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="2 tín chỉ"-->
+<!--        tools:layout_editor_absoluteX="101dp"-->
+<!--        tools:layout_editor_absoluteY="239dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView6"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Kỳ học: 2"-->
+<!--        tools:layout_editor_absoluteX="101dp"-->
+<!--        tools:layout_editor_absoluteY="270dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView7"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Điểm LĐ: 7.0"-->
+<!--        tools:layout_editor_absoluteX="102dp"-->
+<!--        tools:layout_editor_absoluteY="296dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView8"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Điểm TL: ....."-->
+<!--        tools:layout_editor_absoluteX="102dp"-->
+<!--        tools:layout_editor_absoluteY="330dp" />-->
+</androidx.constraintlayout.widget.ConstraintLayout>

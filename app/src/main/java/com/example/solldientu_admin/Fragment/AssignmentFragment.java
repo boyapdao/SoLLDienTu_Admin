@@ -1,4 +1,4 @@
-package com.example.solldientu_admin;
+package com.example.solldientu_admin.Fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -6,19 +6,24 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
+import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +34,7 @@ import com.example.solldientu_admin.Api.ApiGVMH;
 import com.example.solldientu_admin.Api.ApiGiaoVien;
 import com.example.solldientu_admin.Pagination.Pagination;
 import com.example.solldientu_admin.Pagination.pGiaoVien;
+import com.example.solldientu_admin.R;
 import com.example.solldientu_admin.object.GVMH;
 import com.example.solldientu_admin.object.GiaoVien;
 import com.example.solldientu_admin.object.MonHoc;
@@ -86,6 +92,7 @@ public class AssignmentFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setHasOptionsMenu(true);
     }
 
     View view;
@@ -97,12 +104,18 @@ public class AssignmentFragment extends Fragment {
 
     int page=1, pageSize=8;
     int pos, pos_DangKyMon;
+    int totalGV;
+    String QueryText="";
 
     ArrayList<MonHoc> arrMonHoc=new ArrayList<>();// List môn học đã đăng ký
     ArrayList<MonHoc> arrMonHoc2=new ArrayList<>();//List môn học chưa đăng ký
 
     GVMH_MonAdapter ar_adapter;// Adapter môn đã đăng ký
     GVMH_AddMonAdapter ar_add_adapter;//Adapter môn chưa đăng ký
+
+    boolean userScrolled = false;// Check scroll
+    int userScrolledCount=0;// count scroll
+    private static RelativeLayout bottomLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -122,6 +135,81 @@ public class AssignmentFragment extends Fragment {
                 ChiTiet();
             }
         });
+        lv_ass.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+                if (userScrolledCount>0){
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (i== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
+                            {
+                                userScrolled=true;
+                                userScrolledCount=0;
+                            }
+                        }
+                    }, 1500);
+                }else {
+                    if (i== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
+                    {
+                        userScrolled=true;
+                        userScrolledCount++;
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+                if (userScrolled && i+i1 == i2 && QueryText.equals(""))
+                    if (ds_GV.size()<totalGV)
+                    {
+                        userScrolled=false;
+                        UpdateListView();
+                    }
+                if (userScrolled && i+i1 == i2 && !QueryText.equals(""))
+                    if (ds_GV.size()<totalGV)
+                    {
+                        userScrolled=false;
+//                        UpdateListView2();
+                    }
+            }
+        });
+    }
+
+    private void UpdateListView() {
+        bottomLayout.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                page++;
+//                Get_All(page, pageSize);
+                Pagination p=new Pagination(page, pageSize,"");
+                ApiGiaoVien.apiService.get_All2(p.getHm()).enqueue(new Callback<pGiaoVien>() {
+                    @Override
+                    public void onResponse(Call<pGiaoVien> call, Response<pGiaoVien> response) {
+                        pd.dismiss();
+
+                        ArrayList<GiaoVien> ds_gv1=response.body().getData();
+                        totalGV=response.body().getTotal();
+
+                        if (ds_gv1.size()>0){
+                            for (int i=0;i < ds_gv1.size(); i++)
+                            {
+                                ds_GV.add(ds_gv1.get(i));
+                            }
+                            apdapter.notifyDataSetChanged();
+                            bottomLayout.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<pGiaoVien> call, Throwable t) {
+
+                    }
+                });
+//                Toast.makeText(getActivity(), "Items Updated.", Toast.LENGTH_SHORT).show();
+            }
+        }, 1000);
     }
 
     private void ChiTiet() {
@@ -312,6 +400,7 @@ public class AssignmentFragment extends Fragment {
         ApiGiaoVien.apiService.get_All2(p.getHm()).enqueue(new Callback<pGiaoVien>() {
             @Override
             public void onResponse(Call<pGiaoVien> call, Response<pGiaoVien> response) {
+                totalGV=response.body().getTotal();
                 ds_GV=response.body().getData();
                 apdapter=new GVMH_Apdapter(R.layout.dong_phancong, getContext() , ds_GV);
                 lv_ass.setAdapter(apdapter);
@@ -329,5 +418,55 @@ public class AssignmentFragment extends Fragment {
 
     private void Init() {
         lv_ass=view.findViewById(R.id.lv_assignment);
+        bottomLayout=getActivity().findViewById(R.id.loadItemsLayout_listView);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem mSearchMenu=menu.findItem(R.id.mn_search);
+        SearchView searchView= (SearchView) mSearchMenu.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Get_AllSearch(page, pageSize, query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                QueryText=newText;
+                return false;
+            }
+        });
+    }
+
+    private void Get_AllSearch(int page, int pageSize, String query) {
+        pd=new ProgressDialog(getActivity());
+        pd.setMessage("Đang tìm kiếm dữ liệu....");
+        pd.show();
+
+        ds_GV.clear();
+        Pagination p=new Pagination(page, pageSize,query);
+        ApiGiaoVien.apiService.search(p.getHm()).enqueue(new Callback<pGiaoVien>() {
+            @Override
+            public void onResponse(Call<pGiaoVien> call, Response<pGiaoVien> response) {
+                pd.dismiss();
+
+                ArrayList<GiaoVien> ds_gv1=response.body().getData();
+                totalGV=response.body() .getTotal();
+
+                if (ds_gv1.size()>0){
+                    for (int i=0;i < ds_gv1.size(); i++)
+                        ds_GV.add(ds_gv1.get(i));
+                    apdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<pGiaoVien> call, Throwable t) {
+
+            }
+        });
     }
 }

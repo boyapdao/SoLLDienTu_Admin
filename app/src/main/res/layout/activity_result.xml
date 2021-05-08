@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ResultActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/teal_700"
+        android:elevation="4dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="6dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_sv"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center|top"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/add_image" />
+
+                    <TableLayout
+                        android:id="@+id/table1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/img_sv"
+                        android:layout_marginTop="10dp"
+                        android:padding="5dp">
+
+                        <TableRow android:layout_margin="5dp">
+
+                            <TextView
+                                android:layout_marginRight="10dp"
+                                android:text="Mã sinh viên: "
+                                android:textColor="#000"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/tv_MaSinhVien"
+                                android:text="....."
+                                android:textColor="#F44336"
+                                android:textSize="17dp" />
+                        </TableRow>
+
+                        <TableRow android:layout_margin="5dp">
+
+                            <TextView
+                                android:layout_marginRight="10dp"
+                                android:text="Tên sinh viên: "
+                                android:textColor="#000"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/tv_TenSinhVien"
+                                android:text="....."
+                                android:textColor="#000"
+                                android:textSize="17dp" />
+                        </TableRow>
+
+                        <TableRow android:layout_margin="5dp">
+
+                            <TextView
+                                android:text="Ngày sinh: "
+                                android:textColor="#000"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/tv_NgaySinh"
+                                android:text="....."
+                                android:textColor="#000"
+                                android:textSize="17dp" />
+                        </TableRow>
+
+                        <TableRow android:layout_margin="5dp">
+
+                            <TextView
+                                android:text="Giới tính: "
+                                android:textColor="#000"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/tv_GioiTinh"
+                                android:text="....."
+                                android:textColor="#000"
+                                android:textSize="17dp" />
+                        </TableRow>
+
+                        <TableRow android:layout_margin="5dp">
+
+                            <TextView
+                                android:text="Thường trú: "
+                                android:textColor="#000"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/tv_ThuongTru"
+                                android:layout_width="260dp"
+                                android:lines="2"
+                                android:maxLines="4"
+                                android:text="....."
+                                android:textColor="#000"
+                                android:textSize="17dp" />
+                        </TableRow>
+
+                        <TableRow android:layout_margin="5dp">
+
+                            <TextView
+                                android:text="Tạm trú: "
+                                android:textColor="#000"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/tv_TamTru"
+                                android:layout_width="260dp"
+                                android:lines="2"
+                                android:text="....."
+                                android:textColor="#000"
+                                android:textSize="17dp" />
+                        </TableRow>
+
+                        <TableRow android:layout_margin="5dp">
+
+                            <TextView
+                                android:text="Số điện thoại: "
+                                android:textColor="#000"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/tv_SDT"
+                                android:text="....."
+                                android:textColor="#000"
+                                android:textSize="17dp" />
+                        </TableRow>
+                    </TableLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/card1"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="6dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Kết quả các môn học"
+                        android:textColor="#000"
+                        android:textSize="21dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@id/text2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="Chọn kỳ học:"
+                        android:layout_marginTop="5dp"
+                        android:textColor="#000"
+                        android:textSize="18dp"
+                        android:layout_below="@id/text1"/>
+                    <Spinner
+                        android:id="@+id/sp_KyHoc"
+                        android:layout_width="120dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/text1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"/>
+                    <ListView
+                        android:id="@+id/lv_kqMH"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:layout_below="@id/text2" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

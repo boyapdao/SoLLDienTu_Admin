@@ -40,4 +40,9 @@ public class LopHoc {
     public void setMaGv(String maGv) {
         this.maGv = maGv;
     }
+
+    @Override
+    public String toString() {
+        return maLop+" - "+tenLop;
+    }
 }

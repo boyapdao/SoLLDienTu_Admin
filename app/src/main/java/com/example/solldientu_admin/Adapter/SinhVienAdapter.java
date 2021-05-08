@@ -49,11 +49,11 @@ public class SinhVienAdapter extends BaseAdapter {
     }
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        SinhVienAdapter.ViewHolder holder;
+        ViewHolder holder;
         if(view==null){
             LayoutInflater inflater= (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             view=inflater.inflate(layout,null);
-            holder=new SinhVienAdapter.ViewHolder();
+            holder=new ViewHolder();
             //Ánh xạ
             holder.imgSv=view.findViewById(R.id.image_Sv);
             holder.tvTen=view.findViewById(R.id.tv_TenSinhVien);
@@ -61,7 +61,7 @@ public class SinhVienAdapter extends BaseAdapter {
             holder.tvGioiTinh=view.findViewById(R.id.tv_GioiTinhSV);
             holder.tvSdt=view.findViewById(R.id.tv_SdtSV);
             view.setTag(holder);
-        }else {holder= (SinhVienAdapter.ViewHolder) view.getTag();}
+        }else {holder= (ViewHolder) view.getTag();}
         //Gán giá trị
         SinhVien a=dsSv.get(i);
 
@@ -79,7 +79,7 @@ public class SinhVienAdapter extends BaseAdapter {
 //            Glide.with(context).load(ApiGiaoVien.url+"GetImage/"+tenfile[0]).into(holder.imgGv);
             Picasso.get().load(ApiSinhVien.url+"GetImage/"+tenfile[0]).into(holder.imgSv);
 //            Log.d("IMAT", tenfile[0]);
-        }else Picasso.get().load(R.drawable.add_image).into(holder.imgSv);
+        }else Picasso.get().load(R.drawable.img_avt).into(holder.imgSv);
         return view;
     }
 }

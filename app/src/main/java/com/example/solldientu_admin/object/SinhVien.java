@@ -1,9 +1,21 @@
 package com.example.solldientu_admin.object;
 
 public class SinhVien {
-    private String maSv,tenSv,ngaySinh;
+    private String maSv, tenSv, ngaySinh;
     private int gioiTinh;
-    private String thuongTru,tamTru,sdt,anh,maLop;
+    private String thuongTru, tamTru, sdt, anh, maLop;
+
+    public SinhVien(String maSv, String tenSv, String ngaySinh, int gioiTinh, String thuongTru, String tamTru, String sdt, String anh, String maLop) {
+        this.maSv = maSv;
+        this.tenSv = tenSv;
+        this.ngaySinh = ngaySinh;
+        this.gioiTinh = gioiTinh;
+        this.thuongTru = thuongTru;
+        this.tamTru = tamTru;
+        this.sdt = sdt;
+        this.anh = anh;
+        this.maLop = maLop;
+    }
 
     public SinhVien(String tenSv, String ngaySinh, int gioiTinh, String thuongTru, String tamTru, String sdt, String anh, String maLop) {
         this.tenSv = tenSv;
@@ -85,18 +97,6 @@ public class SinhVien {
     }
 
     public void setMaLop(String maLop) {
-        this.maLop = maLop;
-    }
-
-    public SinhVien(String maSv, String tenSv, String ngaySinh, int gioiTinh, String thuongTru, String tamTru, String sdt, String anh, String maLop) {
-        this.maSv = maSv;
-        this.tenSv = tenSv;
-        this.ngaySinh = ngaySinh;
-        this.gioiTinh = gioiTinh;
-        this.thuongTru = thuongTru;
-        this.tamTru = tamTru;
-        this.sdt = sdt;
-        this.anh = anh;
         this.maLop = maLop;
     }
 }

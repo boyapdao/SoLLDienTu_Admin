@@ -36,6 +36,7 @@ public interface ApiSinhVien {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiSinhVien.class);
+
     @Multipart
     @POST("UpImage")
     Call<String> UploadPhoto(@Part MultipartBody.Part photo);
@@ -62,6 +63,4 @@ public interface ApiSinhVien {
 
     @POST("search")
     Call<pSinhVien> searchSV (@Body HashMap<String,String> page);
-
-
 }

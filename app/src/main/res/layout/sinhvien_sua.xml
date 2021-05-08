@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="400dp"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp">
@@ -65,12 +65,24 @@
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/edt_sua_NSSV"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:inputType="date" />
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:id="@+id/tv_Sua_NS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:text="02/01/2000"
+                    android:textColor="#000000"
+                    android:textSize="23sp"/>
+                <ImageView
+                    android:id="@+id/img_Calendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/calendar_"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
